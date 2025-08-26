@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conselhos Leitura & Esportes</title>
+    <title>Conselhos de Vida</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,7 +59,7 @@
 
 <body>
     <div class="card">
-        <h1>💡 Conselhos Leitura & Esportes</h1>
+        <h1>💡 Conselhos de Vida</h1>
         <div id="conselho">Clique no botão para receber um conselho!</div>
         <button id="novo">Novo Conselho</button>
     </div>
@@ -70,19 +70,16 @@
 
         async function getAdvice() {
             try {
-                // 1. Buscar conselho em inglês
                 const res = await fetch("https://api.adviceslip.com/advice?_=" + Date.now(), { cache: "no-store" });
                 const data = await res.json();
                 const advice = data.slip.advice;
 
-                // 2. Traduzir para português
                 const translateRes = await fetch(
                     "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(advice) + "&langpair=en|pt"
                 );
                 const translateData = await translateRes.json();
                 const translatedAdvice = translateData.responseData.translatedText;
 
-                // 3. Exibir no card
                 conselho.textContent = translatedAdvice;
             } catch (err) {
                 console.error(err);
